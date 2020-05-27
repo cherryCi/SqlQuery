@@ -1,0 +1,13 @@
+select
+    distinct Num as ConsecutiveNums
+from
+    (select Num,
+            if(@pre=Num,@count := @count+1,@count := 1) as nums,
+            @pre:=Num
+     from Logs as l ,
+          (select @pre:= null,@count:=1) as pc
+    ) as n
+where nums >=3;
+
+
+
